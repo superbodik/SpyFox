@@ -1,0 +1,74 @@
+body {
+    background-color: #09090a; /* Темный фон */
+    color: white; /* Белый текст */
+    font-family: Arial, sans-serif; /* Шрифт */
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение элементов */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Заполняем весь экран */
+    margin: 0; /* Убираем отступы */
+}
+
+header {
+    text-align: center; /* Центрируем текст в заголовке */
+    margin-bottom: 20px; /* Отступ снизу для разделения заголовка и формы */
+}
+
+main {
+    background-color: rgba(30, 30, 30, 0.9); /* Полупрозрачный фон для главного контента */
+    border-radius: 15px; /* Закругление углов */
+    padding: 20px; /* Отступы внутри блока */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Тень для создания эффекта на переднем плане */
+    width: 300px; /* Ширина формы */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column; /* Выстраиваем элементы в колонку */
+    width: 100%; /* Ширина формы по всей ширине контейнера */
+}
+
+label {
+    margin-bottom: 5px; /* Отступы между элементами */
+}
+
+input[type="text"], input[type="password"] {
+    padding: 10px; /* Отступы внутри полей */
+    margin-bottom: 15px; /* Отступы между полями */
+    border: 2px solid #ff5722; /* Обводка полей */
+    border-radius: 5px; /* Закругление углов */
+    background-color: #1c1c1c; /* Темный фон для полей */
+    color: white; /* Белый текст в полях */
+}
+
+button {
+    background-color: #ff5722; /* Цвет кнопки */
+    color: white; /* Белый текст */
+    border: none; /* Убираем стандартные границы */
+    border-radius: 5px; /* Закругление углов кнопки */
+    padding: 10px; /* Отступы внутри кнопки */
+    cursor: pointer; /* Указатель при наведении */
+}
+
+button:hover {
+    background-color: #e64a19; /* Цвет кнопки при наведении */
+}
+
+p {
+    margin-top: 15px; /* Отступ сверху для текста */
+    text-align: center; /* Центрируем текст */
+}
+
+a.button {
+    color: #ff5722; /* Цвет ссылки */
+    text-decoration: none; /* Убираем подчеркивание */
+    font-weight: bold; /* Жирный текст для ссылки */
+}
+
+a.button:hover {
+    text-decoration: underline; /* Подчеркивание при наведении */
+}
