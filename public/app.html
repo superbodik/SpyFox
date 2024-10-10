@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,22 +28,11 @@
                     <span class="directMessageText">Direct Messages</span>
                     <button class="addButton">+</button>
                 </div>
-                <!-- Динамическая загрузка чатов с кастомизацией -->
 
                 <div class="chatItem">Chat 1</div>
                 <div class="chatItem">Chat 2</div>
                 <div class="chatItem">Chat 3</div>
-                <div class="chatItem">Chat 4</div>
-                <div class="chatItem">Chat 5</div>
-                <div class="chatItem">Chat 6</div>
-                <div class="chatItem">Chat 7</div>
-                <div class="chatItem">Chat 8</div>
-                <div class="chatItem">Chat 9</div>
-                <div class="chatItem">Chat 10</div>
-                <div class="chatItem">Chat 11</div>
-                <div class="chatItem">Chat 12</div>
-                <div class="chatItem">Chat 13</div>
-                <!-- Новые чаты будут добавляться сюда -->
+                <!-- ... -->
             </div>
 
             <div class="controlPanel">
@@ -53,20 +42,19 @@
     </div>
 
     <div class="frindLisNav"> 
-        <div class="frindLisNav"> 
-            <header class="friendHeder">
-                <p class="friendHedertext">Друзья</p>
-                <div class="friendHederbutton">В сети</div>
-                <div class="friendHederbutton">Все</div>
-                <div class="friendHederbutton">Ожидание</div>
-                <div class="friendHederbutton">Заблокированные</div>
-                <div class="friendHederbuttonadd">Добавить в друзья</div>
-
-            </header>
-            <div class="search-container">
-                <input type="search" placeholder="Поиск..." class="search-bar">
-            </div>
-        </div>
+        <header class="friendHeder">
+            <p class="friendHedertext">Друзья</p>
+            <div class="friendHederbutton" data-page="online.html">В сети</div>
+            <div class="friendHederbutton" data-page="all.html">Все</div>
+            <div class="friendHederbutton" data-page="pending.html">Ожидание</div>
+            <div class="friendHederbutton" data-page="blocked.html">Заблокированные</div>
+            <div class="friendHederbuttonadd" data-page="add-friend.html">Добавить в друзья</div>
+        </header>
     </div>
+
+    <!-- Контейнер для динамической загрузки содержимого -->
+    <div id="content"></div>
+
+    <script src="./script/friendserch.js"></script>
 </body>
 </html>

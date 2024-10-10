@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Заголовок сайта</h1>
+    </header>
+
+    <div class="theme-customizer">
+        <h3>Настройка темы</h3>
+        <label for="background-color">Цвет фона:</label>
+        <input type="color" id="background-color" name="background-color" value="#ffffff">
+    
+        <button id="applyTheme">Применить тему</button>
+        <button id="resetTheme">Сбросить тему</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const backgroundColorPicker = document.getElementById('background-color');
+            const applyButton = document.getElementById('applyTheme');
+            const resetButton = document.getElementById('resetTheme');
+
+            // Загружаем сохраненную тему, если она есть
+            const savedTheme = JSON.parse(localStorage.getItem('customTheme'));
+            if (savedTheme) {
+                applyCustomTheme(savedTheme);
+                setPickerValues(savedTheme);
+            }
+
+            // Применение пользовательской темы (только цвет фона)
+            applyButton.addEventListener('click', () => {
+                const customTheme = {
+                    backgroundColor: backgroundColorPicker.value
+                };
+                
+                // Применяем тему
+                applyCustomTheme(customTheme);
+                
+                // Сохраняем тему в localStorage
+                localStorage.setItem('customTheme', JSON.stringify(customTheme));
+            });
+
+            // Сброс темы
+            resetButton.addEventListener('click', () => {
+                localStorage.removeItem('customTheme');
+                location.reload(); // Перезагружаем страницу, чтобы сбросить стили
+            });
+
+            // Функция для применения пользовательских стилей (только цвет фона)
+            function applyCustomTheme(theme) {
+                document.body.style.backgroundColor = theme.backgroundColor;
+            }
+
+            // Устанавливаем значения пикера на основе сохраненной темы
+            function setPickerValues(theme) {
+                backgroundColorPicker.value = theme.backgroundColor;
+            }
+        });
+    </script>
+</body>
+</html>

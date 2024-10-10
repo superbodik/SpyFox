@@ -14,8 +14,9 @@ body {
 .serverList{
     border: 000;
     background-color: #09090a;
-    width:100px;
+    width:200px;
     position: relative;
+    z-index: 2;
     
 }
 .DirectChatMesseg{
@@ -130,7 +131,7 @@ body {
 }
 .frindLisNav{ 
     background-color: #3a3b3d;
-    height:791px;
+    height:auto;
 
     width: 1960px;
     
@@ -191,15 +192,16 @@ body {
 .search-container {
     display: flex;
     align-items: center;
+    position: relative;
     margin: 10px 20px; /* Отступ сверху и снизу */
 }
 
 .search-bar {
-    width:55%; /* Ширина поля поиска */
+    width:30%; /* Ширина поля поиска */
     padding: 8px; /* Внутренний отступ */
     font-size: 14px; /* Размер шрифта */
     border: 2px solid #ccc;
-    border-radius: 5px 0 0 5px; /* Закругление левого края */
+    border-radius: 10px 10px 10px 10px; /* Закругление левого края */
     outline: none;
     background-color: #18191c; /* Цвет фона */
     color: white; /* Цвет текста */
@@ -207,4 +209,29 @@ body {
 
 .search-bar:focus {
     border-color: #FF9800; /* Цвет границы при фокусе */
+}
+
+.horizontal-line {
+    width: 40%; /* Ширина линии */
+    height: 2px; /* Толщина линии */
+    background-color: #000; /* Цвет линии */
+    position: absolute; /* Позиционирование для центрирования */
+    top: 50%; /* Центрирование по вертикали */
+    left: 0;
+}
+
+.vertical-line {
+    width: 2px; /* Толщина линии */
+    height: 600px; /* Высота линии */
+    background-color: #000; /* Цвет линии */
+    position: absolute; /* Позиционирование для центрирования */
+    left: 50%; /* Центрирование по горизонтали */
+    top: 90px;
+}
+
+
+#content {
+    margin-top: 20px;
+
+    text-align: center;
 }
