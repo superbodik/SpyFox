@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sessionId) {
         // Если пользователь авторизован, изменяем ссылку
         authLink.textContent = 'Открыть приложение';
-        authLink.href = 'http://127.0.0.1:5500/app/@me'; // Указываем новый адрес
+        authLink.href = 'http://localhost:3000/app/@me'; // Указываем новый адрес
     } else {
         // Если пользователь не авторизован, оставляем ссылку на регистрацию/авторизацию
         authLink.textContent = 'Регистрация / Авторизация';

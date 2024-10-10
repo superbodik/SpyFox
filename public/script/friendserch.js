@@ -1,32 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Находим все кнопки в friendHeder
-    const buttons = document.querySelectorAll('.friendHederbutton, .friendHederbuttonadd');
-
-    // Добавляем обработчики событий на каждую кнопку
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            const page = this.getAttribute('data-page');
-            loadPageComponent(page); // Загружаем компонент с указанной страницы
-        });
+    document.addEventListener('click', async function(event) {
+        if (event.target && event.target.id === 'sendFriendRequest') {
+            await sendFriendRequest();
+        }
     });
-
-    // Функция для загрузки содержимого из внешнего HTML файла
-    function loadPageComponent(page) {
-        const contentDiv = document.getElementById('content');
-
-        // Загружаем содержимое страницы через fetch
-        fetch(`dinload/${page}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Ошибка загрузки страницы');
-                }
-                return response.text();
-            })
-            .then(html => {
-                contentDiv.innerHTML = html;
-            })
-            .catch(error => {
-                contentDiv.innerHTML = `<p>Ошибка загрузки: ${error.message}</p>`;
-            });
-    }
 });
+
+async function sendFriendRequest() {
+    const friendId = document.getElementById('friendSearch').value;
+
+    // Здесь вы можете добавить какой-то индикатор загрузки или сообщение
+    const searchResults = document.getElementById('searchResults');
+    searchResults.innerHTML = '<p>Отправка запроса...</p>'; // Сообщение о процессе
+
+    try {
+        const response = await fetch('http://localhost:3000/friends/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: 'YOUR_USER_ID', friendId }) // Замените на реальный ID
+        });
+
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            searchResults.innerHTML = `<p>${errorMessage}</p>`;
+            throw new Error('Ошибка при отправке запроса.');
+        }
+
+        const data = await response.text();
+        searchResults.innerHTML = `<p>${data}</p>`;
+    } catch (error) {
+        console.error('Ошибка при отправке запроса:', error);
+        searchResults.innerHTML = `<p>Ошибка: ${error.message}</p>`;
+    }
+}

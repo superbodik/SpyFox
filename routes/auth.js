@@ -11,7 +11,6 @@ router.get('/login', (req, res) => {
     res.send('Авторизация пользователя'); // Вы можете вернуть HTML-форму или JSON
 });
 
-
 router.post('/register', register);
 router.post('/login', login); 
 
