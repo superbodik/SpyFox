@@ -23,4 +23,5 @@
 
 1. Склонируйте репозиторий:
    ```bash
-   git clone https://github.com/ваш-логин/ваш-репозиторий.git
+   git clone [https://github.com/superbodik/SpyFox.git
+](SpyFox)
