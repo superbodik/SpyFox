@@ -1,30 +1,71 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messenger Layout</title>
     <link rel="stylesheet" href="style/main/app.css">
-    <title>Мессенджер</title>
 </head>
 <body>
-    <header>
-        <h1>Мой Мессенджер</h1>
-    </header>
-    <div class="sidebar">
-        <nav>
-            <h2>Друзья</h2>
-            <ul id="friendList">
-                <li class="friend-item active">Artemio</li>
-                <li class="friend-item">don't love</li>
-                <li class="friend-item">FLRVAY</li>
-                <li class="friend-item">ncxiaTp</li>
-            </ul>
-        </nav>
+    <div class="serverList">
+        <button class="DirectChatMesseg">Direct Chat</button>
+        <div>
+            <!-- Динамическая загрузка серверов с кастомизацией -->
+        </div>
+        <button class="DiscoverButton">Discover</button>
     </div>
-    <div class="main-content">
-        <h2>Активные</h2>
-        <div id="channelContent">
-            <p>Здесь будет контент канала.</p>
+
+    <div class="ButtonMenuList">
+        <div>
+            <div class="grid-item">Элемент 1</div>
+            <div class="grid-item">Элемент 2</div>
+            <div class="grid-item">Элемент 3</div>
+        </div>
+
+        <div>
+            <div class="chatContainer">
+                <div class="directMessages">
+                    <span class="directMessageText">Direct Messages</span>
+                    <button class="addButton">+</button>
+                </div>
+                <!-- Динамическая загрузка чатов с кастомизацией -->
+
+                <div class="chatItem">Chat 1</div>
+                <div class="chatItem">Chat 2</div>
+                <div class="chatItem">Chat 3</div>
+                <div class="chatItem">Chat 4</div>
+                <div class="chatItem">Chat 5</div>
+                <div class="chatItem">Chat 6</div>
+                <div class="chatItem">Chat 7</div>
+                <div class="chatItem">Chat 8</div>
+                <div class="chatItem">Chat 9</div>
+                <div class="chatItem">Chat 10</div>
+                <div class="chatItem">Chat 11</div>
+                <div class="chatItem">Chat 12</div>
+                <div class="chatItem">Chat 13</div>
+                <!-- Новые чаты будут добавляться сюда -->
+            </div>
+
+            <div class="controlPanel">
+                <!-- Панель управления -->
+            </div>
+        </div>
+    </div>
+
+    <div class="frindLisNav"> 
+        <div class="frindLisNav"> 
+            <header class="friendHeder">
+                <p class="friendHedertext">Друзья</p>
+                <div class="friendHederbutton">В сети</div>
+                <div class="friendHederbutton">Все</div>
+                <div class="friendHederbutton">Ожидание</div>
+                <div class="friendHederbutton">Заблокированные</div>
+                <div class="friendHederbuttonadd">Добавить в друзья</div>
+
+            </header>
+            <div class="search-container">
+                <input type="search" placeholder="Поиск..." class="search-bar">
+            </div>
         </div>
     </div>
 </body>

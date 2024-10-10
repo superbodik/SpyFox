@@ -1,95 +1,210 @@
-/* Основные стили для body */
 body {
-    background-color: #09090a; /* Цвет фона */
+    background-color: #09090a;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    -webkit-user-select: none;  /* Для Safari, Chrome */
+    -moz-user-select: none;     /* Для Firefox */
+    -ms-user-select: none;      /* Для IE и Edge */
+    user-select: none;          /* Современные браузеры */
+}
+.serverList{
+    border: 000;
+    background-color: #09090a;
+    width:100px;
+    position: relative;
+    
+}
+.DirectChatMesseg{
+    top: 20px;
+    height: 50px;
+    left: 5px;
+    width: 50px;
+    position: relative; 
+    border-radius: 10px;
+}
+
+.DiscoverButton{
+    height: 50px;
+    width: 50px;
+    left: 5px;
+    position: relative;
+    top: 590px;
+    border-radius: 10px;
+}
+.ButtonMenuList{
+    width: 250px;
+    background-color: #18191c;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+}
+.grid-item {
+    display: inline-block;          
+    padding: 1px 95px;            
+    color: white;                          
+    border-radius: 5px;           
+    border: none;                   
+    cursor: pointer;                
+    margin: 5px;                    
+      
+}
+
+.grid-item:hover {
+    background-color: #282a30;
+   
+}
+
+.grid-item:active {
+    background-color: #282a30;   
+    transform: scale(0.98);         
+}
+.controlPanel{
+    height: 65px;
+    background-color: #09090a;
+    width:280px;
+    position: relative;
+    left: -15px;
+    top: 14px;
+    z-index: 1;
+
+}
+
+.chatContainer {
+    height: 400px;           
+    overflow-y: scroll;     
+    padding: 10px;          
+    scrollbar-width: thin; 
+    scrollbar-color: #444 #282a30; 
+    z-index: 2;
+}
+
+.chatItem {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #282a30;   
+
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.chatItem:hover {
+    background-color: #3b3f45;
+}
+.chatItem:active {
+    background-color: #282a30;
+    transform: scale(0.98);
+}
+.directMessages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #282a30;
+}
+
+.directMessageText {
+    font-size: 14px;
+    color: white;
+}
+
+.addButton {
+    background-color: #282a30;
+    border: none;
+    color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.addButton:hover {
+    background-color: #3a3b3d;
+}
+.chatContainer::-webkit-scrollbar-thumb {
+    background: #444; 
+    border-radius: 10px; 
+}
+.frindLisNav{ 
+    background-color: #3a3b3d;
+    height:791px;
+
+    width: 1960px;
+    
+}
+.friendHeder {
+    width: 100%;
+    background-color: #18191c;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* Выравнивание элементов в начале */
+    align-items: center;
+    padding: 15px;
+    position: relative;
+}
+
+.friendHedertext {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-weight: normal;
+    margin-right: 10px; /* Отступ между заголовком и кнопками */
+}
+
+.friendHederbutton,
+.friendHederbuttonadd {
+    padding: 10px 20px;
+    background-color: #282a30;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: normal;
+    transition: background-color 0.3s;
+    margin-right: 10px; /* Отступ справа между кнопками */
+}
+
+.friendHederbuttonadd {
+    background-color: #FF9800; /* Цвет кнопки добавления друзей */
+}
+
+.friendHederbutton:hover,
+.friendHederbuttonadd:hover {
+    background-color: #4a4b4d; /* Цвет кнопки при наведении */
+}
+.friendHedertext{
+    padding: 10px 20px;
+
+    color: white;
+    border-radius: 5px;
+    font-weight: normal;
+    transition: background-color 0.3s, font-weight 0.3s;
+    margin-right: 10px; /* Отступ справа в 10 пикселей между элементами */
+    left: 40px;
+    -webkit-user-select: none;  /* Для Safari, Chrome */
+    -moz-user-select: none;     /* Для Firefox */
+    -ms-user-select: none;      /* Для IE и Edge */
+    user-select: none;          /* Современные браузеры */
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 20px; /* Отступ сверху и снизу */
+}
+
+.search-bar {
+    width:55%; /* Ширина поля поиска */
+    padding: 8px; /* Внутренний отступ */
+    font-size: 14px; /* Размер шрифта */
+    border: 2px solid #ccc;
+    border-radius: 5px 0 0 5px; /* Закругление левого края */
+    outline: none;
+    background-color: #18191c; /* Цвет фона */
     color: white; /* Цвет текста */
-    font-family: Arial, sans-serif; /* Шрифт */
-    display: flex; /* Используем флекс для размещения элементов */
 }
 
-/* Стили для заголовка */
-header {
-    background-color: #222; /* Цвет заголовка */
-    padding: 10px; /* Отступы */
-    text-align: center; /* Выравнивание текста по центру */
-}
-
-h1 {
-    margin: 0; /* Убираем отступы */
-}
-
-/* Стили для навигации */
-nav {
-    margin-top: 10px; /* Отступ сверху */
-}
-
-/* Стили для кнопок */
-.button, button {
-    background-color: #f90; /* Цвет кнопки */
-    color: white; /* Цвет текста кнопки */
-    padding: 10px; /* Отступы */
-    text-decoration: none; /* Убираем подчеркивание */
-    border: none; /* Убираем границу */
-    border-radius: 5px; /* Закругленные углы */
-    cursor: pointer; /* Указываем, что кнопка кликабельная */
-    transition: background-color 0.3s; /* Плавный переход цвета фона */
-}
-
-button:hover {
-    background-color: #e80; /* Цвет кнопки при наведении */
-}
-
-/* Стили для секций */
-section {
-    margin: 20px; /* Отступы между секциями */
-}
-
-/* Стили для текстового поля */
-input[type="text"] {
-    padding: 10px; /* Отступы внутри текстового поля */
-    width: 80%; /* Ширина текстового поля */
-    border: none; /* Убираем границу */
-    border-radius: 5px; /* Закругленные углы */
-}
-
-/* Стили для списков друзей и каналов */
-#friendList,
-#channelList {
-    list-style-type: none; /* Убираем маркеры списка */
-    padding: 0; /* Убираем отступы */
-}
-
-#friendList li,
-#channelList li {
-    margin: 5px 0; /* Отступы между элементами списка */
-}
-
-/* Стили для контента канала */
-#channelContent {
-    border: 1px solid #ccc; /* Рамка для контента канала */
-    padding: 10px; /* Отступы внутри */
-    margin-top: 10px; /* Отступ сверху */
-    background-color: #1e1e1e; /* Цвет фона для контента канала */
-}
-
-/* Стили для боковой панели */
-.sidebar {
-    width: 250px; /* Ширина боковой панели */
-    background-color: #1c1c1c; /* Цвет фона боковой панели */
-    padding: 15px; /* Отступы */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Тень для боковой панели */
-}
-
-/* Стили для основного контента */
-.main-content {
-    flex: 1; /* Занимает оставшееся пространство */
-    padding: 15px; /* Отступы */
-    overflow-y: auto; /* Прокрутка по вертикали при необходимости */
-}
-
-/* Стили для контейнера чата */
-.chat-container {
-    margin-top: 20px; /* Отступ сверху */
-    background-color: #2c2c2c; /* Цвет фона для чата */
-    padding: 10px; /* Отступы */
-    border-radius: 5px; /* Закругленные углы */
+.search-bar:focus {
+    border-color: #FF9800; /* Цвет границы при фокусе */
 }
