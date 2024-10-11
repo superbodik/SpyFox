@@ -1,17 +1,9 @@
+// routes/auth.js
 const express = require('express');
 const router = express.Router();
-const { register, login } = require('../controllers/authController'); // Импортируем register и login
+const { register, login } = require('../controllers/authController'); // Убедитесь, что импортируете обе функции
 
-// Обработчик для GET /auth/register
-router.get('/register', (req, res) => {
-    res.send('Регистрация пользователя'); // Вы можете вернуть HTML-форму или JSON
-});
-
-router.get('/login', (req, res) => {
-    res.send('Авторизация пользователя'); // Вы можете вернуть HTML-форму или JSON
-});
-
-router.post('/register', register);
-router.post('/login', login); 
+router.post('/register', register); // Регистрация
+router.post('/login', login); // Вход
 
 module.exports = router;

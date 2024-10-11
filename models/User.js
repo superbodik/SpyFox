@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true // Это важно, чтобы коды были уникальными
+    },
+    userId: {
+        type: String,
+        required: true,
+        unique: true // Делаем поле уникальным, если это необходимо
     }
 });
 

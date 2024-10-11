@@ -12,8 +12,10 @@ function handleLogin(event) {
     xhr.onload = function () {
         if (xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);
-            // Сохраняем sessionId в локальном хранилище
-            localStorage.setItem('sessionId', response.sessionId); // Предполагается, что вы возвращаете sessionId с сервера
+            const token = response.token; // Получаем токен из ответа
+
+            // Сохраняем токен в локальном хранилище
+            localStorage.setItem('token', token);
             alert(response.message); // Успешное сообщение
             window.location.href = './index.html'; // Перенаправляем на основную страницу
         } else {

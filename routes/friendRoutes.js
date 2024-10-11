@@ -1,23 +1,16 @@
-<<<<<<< HEAD
 const express = require('express');
 const router = express.Router();
-const { addFriend, acceptFriendRequest, rejectFriendRequest } = require('../controllers/friendController');
+const {
+    addFriend,
+    acceptFriendRequest,
+    rejectFriendRequest,
+    searchUserById
+} = require('../controllers/friendController');
 
+// Убедитесь, что все функции определены и правильно импортированы
 router.post('/add', addFriend);
 router.post('/accept', acceptFriendRequest);
 router.post('/reject', rejectFriendRequest);
+router.get('/search/:friendId', searchUserById);
 
 module.exports = router;
-=======
-// routes/friendRoutes.js
-const express = require('express');
-const router = express.Router();
-const { addFriend, acceptFriendRequest, rejectFriendRequest } = require('../controllers/friendController');
-
-
-router.post('/add', addFriend);
-router.post('/accept', acceptFriendRequest);
-router.post('/reject', rejectFriendRequest);
-
-module.exports = router;
->>>>>>> 227d15aae823daf6666813661da61665c1151cd3

@@ -1,8 +1,77 @@
-<div class="search-container">
-    <input type="search" placeholder="Поиск по ID..." class="search-bar" id="friendSearch">
-    <button class="friendHederbuttonadd" id="sendFriendRequest">Отправить запрос</button>
-    
-    <div id="searchResults"></div> <!-- Контейнер для отображения результатов поиска -->
-</div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить друга</title>
+</head>
+<body>
+    <div id="addFriendContainer"></div>
 
-<script src="../script/friendserch.js" defer></script>
+
+    <script>
+        // Функция для загрузки формы добавления друга
+        function loadAddFriendForm() {
+            const addFriendContainer = document.getElementById('addFriendContainer');
+            addFriendContainer.innerHTML = `
+                <form id="addFriendForm">
+                    <input type="text" id="friendId" placeholder="Введите ID друга" required>
+                    <button type="submit">Добавить друга</button>
+                </form>
+                <div id="responseMessage"></div>
+            `;
+
+            // Привязываем обработчик событий к форме
+            const addFriendForm = document.getElementById('addFriendForm');
+            addFriendForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // предотвращаем отправку формы
+
+                const friendId = document.getElementById('friendId').value;
+                const userId = localStorage.getItem('userId'); // Получаем ID пользователя из локального хранилища
+
+                if (!userId) {
+                    document.getElementById('responseMessage').innerText = 'Ошибка: ID пользователя не найден';
+                    return;
+                }
+
+                try {
+                    // Шаг 1: Ищем пользователя с таким friendId
+                    const searchResponse = await fetch(`/friends/search/${friendId}`, {
+                        method: 'GET',
+                    });
+
+                    // Проверяем, существует ли такой пользователь
+                    if (searchResponse.status === 404) {
+                        document.getElementById('responseMessage').innerText = 'Пользователь не найден';
+                        return;
+                    }
+
+                    // Если пользователь найден, продолжаем
+                    const userFound = await searchResponse.json(); // Получаем данные о пользователе
+
+                    // Шаг 2: Отправляем запрос на добавление в друзья
+                    const addResponse = await fetch('/friends/add', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ userId, friendId }), // отправляем и userId, и friendId
+                    });
+
+                    // Получаем текст ответа от сервера
+                    const data = await addResponse.text();
+
+                    // Отображаем сообщение пользователю
+                    document.getElementById('responseMessage').innerText = data;
+                } catch (error) {   
+                    console.error('Ошибка при отправке запроса:', error);
+                    document.getElementById('responseMessage').innerText = 'Ошибка при добавлении в друзья.';
+                }
+            });
+        }
+
+        // Вызываем функцию загрузки формы при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadAddFriendForm);
+    </script>
+</body>
+</html>
