@@ -26,9 +26,7 @@
    git clone https://github.com/superbodik/SpyFox.git
 2. Перейдите в папку проекта:
 
-bash
-
-cd ваш-репозиторий
+```cd ваш-репозиторий```
 
 3. Установите зависимости:
 
