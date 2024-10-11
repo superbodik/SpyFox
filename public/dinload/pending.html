@@ -1,3 +1,4 @@
+<<<<<<< HEAD
     <h1>Ожидание запросов</h1>
     <div id="pendingRequests"></div>
 
@@ -61,3 +62,78 @@
         }
     </script>
 
+=======
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ожидание запросов</title>
+    <link rel="stylesheet" href="style/main/app.css"> <!-- Подключите ваш CSS -->
+</head>
+<body>
+    <h1>Ожидание запросов</h1>
+    <div id="pendingRequests"></div>
+
+    <script>
+        // Функция для получения и отображения ожидающих запросов
+        async function loadPendingRequests() {
+            try {
+                const response = await fetch('/api/friends/pending'); // Ваш API для получения ожидающих запросов
+                const requests = await response.json();
+
+                const pendingRequests = document.getElementById('pendingRequests');
+                pendingRequests.innerHTML = requests.map(request => `
+                    <div class="request-item">
+                        <span>${request.username}</span>
+                        <button onclick="acceptRequest('${request.id}')">Принять</button>
+                        <button onclick="rejectRequest('${request.id}')">Отклонить</button>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Ошибка при загрузке ожидающих запросов:', error);
+            }
+        }
+
+        // Вызов функции при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadPendingRequests);
+
+        // Функция для принятия запроса
+        async function acceptRequest(requestId) {
+            try {
+                const response = await fetch('/api/friends/accept', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId: 'ваш_id', friendId: requestId }), // Замените на текущий ID пользователя
+                });
+                const result = await response.json();
+                alert(result.message);
+                loadPendingRequests(); // Обновить список
+            } catch (error) {
+                console.error('Ошибка при принятии запроса:', error);
+            }
+        }
+
+        // Функция для отклонения запроса
+        async function rejectRequest(requestId) {
+            try {
+                const response = await fetch('/api/friends/reject', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId: 'ваш_id', friendId: requestId }), // Замените на текущий ID пользователя
+                });
+                const result = await response.json();
+                alert(result.message);
+                loadPendingRequests(); // Обновить список
+            } catch (error) {
+                console.error('Ошибка при отклонении запроса:', error);
+            }
+        }
+    </script>
+</body>
+</html>
+>>>>>>> 227d15aae823daf6666813661da61665c1151cd3
