@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:;">
-    <title>Messenger Layout</title>
-    <link rel="stylesheet" href="style/main/app.css">
-    <script src="./script/app/dinload.js" defer></script>
-    <script src="./script/friendserch.js" defer></script>
-
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self';">
+    
+    <link rel="stylesheet" href="/style/main/app.css">
+    <script src="/script/app/dinload.js" defer></script>
+    <script src="/script/friendserch.js" defer></script>
 </head>
 <body>
     <div class="serverList">
@@ -48,17 +47,35 @@
     <div class="frindLisNav"> 
         <header class="friendHeder">
             <p class="friendHedertext">Друзья</p>
-            <button class="friendHederbutton" data-page="dinload/online.html">В сети</button>
-            <button class="friendHederbutton" data-page="dinload/all.html">Все</button>
-            <button class="friendHederbutton" data-page="dinload/pending.html">Ожидание</button>
-            <button class="friendHederbutton" data-page="dinload/blocked.html">Заблокированные</button>
-            <button class="friendHederbuttonadd" data-page="dinload/add-friend.html">Добавить в друзья</button>
+            <button class="friendHederbutton" data-page="/dinload/online.html">В сети</button>
+            <button class="friendHederbutton" data-page="/dinload/all.html">Все</button>
+            <button class="friendHederbutton" data-page="/dinload/pending.html">Ожидание</button>
+            <button class="friendHederbutton" data-page="/dinload/blocked.html">Заблокированные</button>
+            <button class="friendHederbuttonadd" data-page="/dinload/add-friend.html">Добавить в друзья</button>
         </header>
         <div id="content"></div>
     </div>
 
-    <!-- Контейнер для динамической загрузки содержимого -->
-    
-    
+    <script>
+        document.querySelectorAll('.friendHederbutton, .friendHederbuttonadd').forEach(button => {
+            button.addEventListener('click', function() {
+                const page = this.getAttribute('data-page');
+                fetch(page)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Страница не найдена');
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        document.getElementById('content').innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error('Ошибка загрузки страницы:', error);
+                        document.getElementById('content').innerHTML = '<p>Не удалось загрузить страницу.</p>';
+                    });
+            });
+        });
+    </script>
 </body>
 </html>

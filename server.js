@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -7,7 +8,7 @@ const authRoutes = require('./routes/auth');
 const friendRoutes = require('./routes/friendRoutes');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; 
 
 connectDB();
 
@@ -23,10 +24,11 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/app/@me', (req, res) => {
-    res.redirect('/public/'); // Перенаправляем на новый маршрут
+    res.sendFile(path.join(__dirname, 'public', 'app.html'));
 });
+
 app.use('/auth', authRoutes);
-app.use('/friends', friendRoutes);
+app.use('/friends', friendRoutes); 
 
 app.listen(PORT, () => {
     console.log(`Сервер запущен на http://localhost:${PORT}`);
