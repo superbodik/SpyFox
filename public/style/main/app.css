@@ -235,3 +235,52 @@ body {
 
     text-align: center;
 }
+.controlPanel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
+
+.userIconContainer {
+    display: flex;
+    align-items: center;
+}
+
+.userIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profileButton {
+    background-color: #444;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.settingsControls {
+    display: flex;
+    align-items: center;
+}
+
+.settingsControls button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.settingsControls img {
+    width: 30px;
+    height: 30px;
+}
+
+.muted {
+    opacity: 0.5;
+}

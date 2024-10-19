@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self';">
     <title>SpyFox | Мессенджер для общения</title>
     <link rel="stylesheet" href="style/main/style.css">
+    <script src="/script/authscript/checkAuth.js"></script>
 </head>
 <body>
     <header>
@@ -21,6 +22,24 @@
             <p>Присоединяйтесь к нам и откройте для себя новый уровень общения!</p>
         </section>
     </main>
-    <script src="../public/script/authscript/checkAuth.js"></script> <!-- Подключите ваш JavaScript файл -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sessionId = localStorage.getItem('token'); // Используем 'token' как ключ
+            const authLink = document.getElementById('authLink');
+            
+            if (authLink) {
+                if (sessionId) {
+                    authLink.textContent = 'Открыть приложение';
+                    authLink.href = '/app/@me'; // Убедитесь, что этот путь правильный
+                } else {
+                    authLink.textContent = 'Регистрация / Авторизация';
+                    authLink.href = '/auth.html'; // Путь для авторизации
+                }
+            } else {
+                console.error('Элемент с id "authLink" не найден');
+            }
+        });
+    </script>
 </body>
 </html>

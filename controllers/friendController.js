@@ -1,91 +1,117 @@
 const User = require('../models/User');
-const Friend = require('../models/Friend');
+const FriendRequest = require('../models/FriendRequest');
 
+// Добавление в друзья
 exports.addFriend = async (req, res) => {
-    const userId = req.user.id; // Получаем userId из токена
-    const friendId = req.body.friendId; // Получаем friendId из тела запроса
+    const userId = req.user.id;  // ID текущего пользователя из токена
+    const { friendCode } = req.body;  // Код друга
 
-    // Проверка на наличие userId и friendId
-    if (!userId || !friendId) {
-        return res.status(400).json({ error: 'Недостаточно данных для добавления друга' });
+    if (!friendCode) {
+        return res.status(400).json({ error: 'Не указан friendCode' });
     }
 
     try {
-        // Здесь ваш код для добавления друга
-        const friend = await User.findById(friendId); // Получение друга по friendId
+        const friend = await User.findOne({ friendCode }); // Ищем пользователя по friendCode
         if (!friend) {
-            return res.status(404).json({ error: 'Друг не найден' });
+            return res.status(404).json({ error: 'Пользователь с таким friendCode не найден' });
         }
 
-        // Добавление друга к пользователю
-        await User.findByIdAndUpdate(userId, { $addToSet: { friends: friendId } });
+        if (userId === friend._id.toString()) {
+            return res.status(400).json({ error: 'Вы не можете добавить себя в друзья' });
+        }
 
-        res.status(200).json({ message: 'Друг успешно добавлен' });
+        // Проверяем, не является ли пользователь уже другом
+        const user = await User.findById(userId);
+        if (user.friends.includes(friend._id)) {
+            return res.status(400).json({ error: 'Вы уже добавили этого пользователя в друзья' });
+        }
+
+        // Создаем запрос на добавление в друзья
+        const friendRequest = new FriendRequest({
+            requester: userId,
+            receiver: friend._id
+        });
+
+        await friendRequest.save();
+        res.status(200).json({ message: 'Запрос на добавление в друзья отправлен' });
     } catch (error) {
-        console.error('Ошибка при добавлении друга:', error);
-        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+        console.error('Ошибка при добавлении в друзья:', error);
+        res.status(500).json({ error: 'Ошибка сервера' });
     }
 };
 
-// Принятие запроса на дружбу
+// Принятие запроса на добавление в друзья
 exports.acceptFriendRequest = async (req, res) => {
-    const { userId, friendId } = req.body;
+    const userId = req.user.id;
+    const { requestId } = req.body; // ID запроса
+
+    if (!requestId) {
+        return res.status(400).json({ error: 'Не указан ID запроса' });
+    }
 
     try {
-        // Поиск запроса на дружбу (поиск обратного запроса)
-        const friendship = await Friend.findOne({ userId: friendId, friendId: userId });
-
-        // Если запрос на дружбу не найден
-        if (!friendship) {
-            return res.status(404).json({ message: 'Запрос на дружбу не найден' });
+        const request = await FriendRequest.findById(requestId);
+        if (!request || request.receiver.toString() !== userId) {
+            return res.status(404).json({ error: 'Запрос не найден или вы не являетесь получателем' });
         }
 
-        // Обновление статуса дружбы
-        friendship.status = 'accepted';
-        await friendship.save();
+        // Обновляем статус запроса на "принят"
+        request.status = 'accepted';
+        await request.save();
 
-        res.status(200).json({ message: 'Запрос на дружбу принят' });
+        // Добавляем друг друга в друзья
+        const user = await User.findById(userId);
+        const friend = await User.findById(request.requester);
+
+        user.friends.push(friend._id);
+        friend.friends.push(user._id);
+
+        await user.save();
+        await friend.save();
+
+        res.status(200).json({ message: 'Запрос принят и друзья добавлены' });
     } catch (error) {
-        console.error('Ошибка при принятии дружбы:', error);
-        res.status(500).json({ message: 'Ошибка сервера', error });
+        console.error('Ошибка при принятии запроса:', error);
+        res.status(500).json({ error: 'Ошибка сервера' });
     }
 };
 
-// Отклонение запроса на дружбу
+// Отклонение запроса на добавление в друзья
 exports.rejectFriendRequest = async (req, res) => {
-    const { userId, friendId } = req.body;
+    const userId = req.user.id;
+    const { requestId } = req.body; // ID запроса
+
+    if (!requestId) {
+        return res.status(400).json({ error: 'Не указан ID запроса' });
+    }
 
     try {
-        // Поиск и удаление запроса на дружбу
-        const friendship = await Friend.findOneAndDelete({ userId: friendId, friendId: userId });
-
-        // Если запрос не найден
-        if (!friendship) {
-            return res.status(404).json({ message: 'Запрос на дружбу не найден' });
+        const request = await FriendRequest.findById(requestId);
+        if (!request || request.receiver.toString() !== userId) {
+            return res.status(404).json({ error: 'Запрос не найден или вы не являетесь получателем' });
         }
 
-        res.status(200).json({ message: 'Запрос на дружбу отклонен' });
+        // Удаляем запрос на добавление в друзья
+        await FriendRequest.findByIdAndDelete(requestId);
+        res.status(200).json({ message: 'Запрос отклонён' });
     } catch (error) {
-        console.error('Ошибка при отклонении дружбы:', error);
-        res.status(500).json({ message: 'Ошибка сервера', error });
+        console.error('Ошибка при отклонении запроса:', error);
+        res.status(500).json({ error: 'Ошибка сервера' });
     }
 };
 
-// Поиск пользователя по ID
-exports.searchUserById = async (req, res) => {
-    const { friendId } = req.params;
+// Поиск пользователя по friendCode
+exports.searchUserByFriendCode = async (req, res) => {
+    const { friendCode } = req.params;
 
     try {
-        console.log(`Поиск пользователя с friendCode: ${friendId}`);
-        const user = await User.findOne({ friendCode: friendId }).select('-password'); // Исключаем пароль
+        const user = await User.findOne({ friendCode });
         if (!user) {
-            console.log('Пользователь не найден');
-            return res.status(404).json({ message: 'Пользователь не найден' });
+            return res.status(404).json({ error: 'Пользователь не найден' });
         }
-        console.log('Пользователь найден:', user);
+
         res.status(200).json(user);
     } catch (error) {
-        console.error('Ошибка при поиске пользователя:', error);
-        res.status(500).json({ message: 'Ошибка при поиске пользователя' });
+        res.status(500).json({ error: 'Ошибка сервера' });
     }
 };

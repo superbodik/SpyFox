@@ -4,13 +4,20 @@ const {
     addFriend,
     acceptFriendRequest,
     rejectFriendRequest,
-    searchUserById
+    searchUserByFriendCode
 } = require('../controllers/friendController');
+const verifyToken = require('../middleware/verifyToken');
 
-// Убедитесь, что все функции определены и правильно импортированы
-router.post('/add', addFriend);
-router.post('/accept', acceptFriendRequest);
-router.post('/reject', rejectFriendRequest);
-router.get('/search/:friendId', searchUserById);
+// Добавление друга
+router.post('/add', verifyToken, addFriend);
+
+// Принятие запроса на добавление в друзья
+router.post('/accept', verifyToken, acceptFriendRequest);
+
+// Отклонение запроса на добавление в друзья
+router.post('/reject', verifyToken, rejectFriendRequest);
+
+// Поиск пользователя по friendCode
+router.get('/search/:friendCode', verifyToken, searchUserByFriendCode);
 
 module.exports = router;

@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-    
+    <title>SpyFox | Мессенджер для общения</title>
     <link rel="stylesheet" href="/style/main/app.css">
-    <script src="/public/script/app/dinload.js" defer></script>
-    <script src="/public/script/friendserch.js"></script>
-    <script src="/public/script/checkUser.js"></script>
+    <script src="/script/app/dinload.js" defer></script>
+    <script src="/script/app/voiceControl.js" defer></script>
+    <script src="/script/app/voiceControlCOKI.js" defer></script>
+    <script src="/script/authscript/checkUser.js"></script>
+    
 </head>
 <body>
     <div class="serverList">
@@ -16,6 +18,7 @@
         <div>
             <!-- Динамическая загрузка серверов с кастомизацией -->
         </div>
+        <button class="CreateServerButton">+</button>
         <button class="DiscoverButton">Discover</button>
     </div>
 
@@ -40,8 +43,24 @@
             </div>
 
             <div class="controlPanel">
-                <!-- Панель управления -->
+                <div class="userIconContainer">
+                    <img src="/path/to/default-avatar.png" alt="User Icon" class="userIcon" id="userIcon">
+                    <button class="profileButton" id="profileButton">Профиль</button>
+                </div>
+            
+                <div class="settingsControls">
+                    <button class="micButton" id="micButton">
+                        <img src="/path/to/mic-off-icon.png" alt="Mic Off" id="micIcon">
+                    </button>
+                    <button class="headphonesButton" id="headphonesButton">
+                        <img src="/path/to/headphones-off-icon.png" alt="Headphones Off" id="headphonesIcon">
+                    </button>
+                    <button class="settingsButton" id="settingsButton">
+                        <img src="/path/to/settings-icon.png" alt="Settings">
+                    </button>
+                </div>
             </div>
+            
         </div>
     </div>
 
@@ -53,9 +72,11 @@
             <button class="friendHederbutton" data-page="/dinload/pending.html">Ожидание</button>
             <button class="friendHederbutton" data-page="/dinload/blocked.html">Заблокированные</button>
             <button class="friendHederbuttonadd" data-page="/dinload/add-friend.html">Добавить в друзья</button>
-        </header>
+        <a id="authLink" href="#">Загрузка...</a>
+    </header>
         <div id="addFriendContainer"></div>
         <div id="content"></div>
     </div>
+
 </body>
 </html>

@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ожидание запросов</title>
+</head>
+<body>
     <h1>Ожидание запросов</h1>
     <div id="pendingRequests"></div>
 
@@ -26,17 +34,25 @@
 
         // Функция для принятия запроса
         async function acceptRequest(requestId) {
+            const userId = localStorage.getItem('userId'); // Получаем ID текущего пользователя
+
+            if (!userId) {
+                alert('Ошибка: ID пользователя не найден');
+                return;
+            }
+
             try {
                 const response = await fetch('/api/friends/accept', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ userId: 'ваш_id', friendId: requestId }), // Замените на текущий ID пользователя
+                    body: JSON.stringify({ userId, requestId }), // Передаем ID пользователя и ID запроса
                 });
+
                 const result = await response.json();
                 alert(result.message);
-                loadPendingRequests(); // Обновить список
+                loadPendingRequests(); // Обновить список запросов
             } catch (error) {
                 console.error('Ошибка при принятии запроса:', error);
             }
@@ -44,19 +60,29 @@
 
         // Функция для отклонения запроса
         async function rejectRequest(requestId) {
+            const userId = localStorage.getItem('userId'); // Получаем ID текущего пользователя
+
+            if (!userId) {
+                alert('Ошибка: ID пользователя не найден');
+                return;
+            }
+
             try {
                 const response = await fetch('/api/friends/reject', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ userId: 'ваш_id', friendId: requestId }), // Замените на текущий ID пользователя
+                    body: JSON.stringify({ userId, requestId }), // Передаем ID пользователя и ID запроса
                 });
+
                 const result = await response.json();
                 alert(result.message);
-                loadPendingRequests(); // Обновить список
+                loadPendingRequests(); // Обновить список запросов
             } catch (error) {
                 console.error('Ошибка при отклонении запроса:', error);
             }
         }
     </script>
+</body>
+</html>

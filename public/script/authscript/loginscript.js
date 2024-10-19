@@ -1,4 +1,3 @@
-// Функция для входа пользователя
 function handleLogin(event) {
     event.preventDefault(); // Предотвращаем перезагрузку страницы
 
@@ -12,15 +11,23 @@ function handleLogin(event) {
     xhr.onload = function () {
         if (xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);
-            const token = response.token; // Получаем токен из ответа
+            const token = response.sessionId; // Токен хранится в sessionId
 
-            // Сохраняем токен в локальном хранилище
             localStorage.setItem('token', token);
-            alert(response.message); // Успешное сообщение
-            window.location.href = './index.html'; // Перенаправляем на основную страницу
+
+            alert(response.message);
+
+            // Изменение кнопки после успешной авторизации
+            const authLink = document.getElementById('authLink');
+            if (authLink) {
+                authLink.textContent = 'Открыть приложение';
+                authLink.href = '/app/@me';
+            }
+
+            window.location.href = './index.html'; // Перенаправление на основную страницу
         } else {
             const error = JSON.parse(xhr.responseText);
-            alert('Ошибка авторизации. ' + error.message); // Сообщение об ошибке
+            alert('Ошибка авторизации. ' + error.message);
         }
     };
 
